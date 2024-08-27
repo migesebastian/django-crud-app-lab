@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/books/book-index.css' %}" />
+{% endblock %}
+
+{% block content %}
+
+<section class="page-header">
+  <h1>Book List</h1>
+  <img src="{% static 'images/book-icon-1.svg' %}" alt="Book icon 1" />
+  <img src="{% static 'images/book-icon-2.svg' %}" alt="Book icon 2" />
+  <img src="{% static 'images/book-icon-3.svg' %}" alt="Book icon 3" />
+  <img src="{% static 'images/book-icon-4.svg' %}" alt="Book icon 4" />
+</section>
+
+<section class="card-container">
+  {% for book in books %}
+  <div class="card">
+    <a href="{% url 'book-detail' book.id %}">
+      <div class="card-content">
+        <div class="card-img-container">
+          <img
+            src="{% static 'images/book-cover-placeholder.svg' %}"
+            alt="{{ book.title }} cover"
+          />
+        </div>
+        <h2 class="card-title">{{ book.title }}</h2>
+        <p><strong>Author:</strong> {{ book.author }}</p>
+        {% if book.year_published %}
+        <p><strong>Published:</strong> {{ book.year_published }}</p>
+        {% endif %}
+        <p><small>{{ book.description|truncatewords:20 }}</small></p>
+      </div>
+    </a>
+  </div>
+  {% endfor %}
+</section>
+
+{% endblock %}
